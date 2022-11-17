@@ -1,0 +1,63 @@
+﻿@page "/catalog"
+
+@using MyStore.Models;
+@using MyStore.HttpApiClient;
+
+@inject IMyStoreClient HttpClient
+@inject IJSRuntime JS
+
+<h3>Список товаров</h3>
+
+
+@if (ProductList != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Товар</th>
+                <th scope="col">Цена</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in ProductList)
+            {
+                <tr>
+                    <td class="align-middle" style="color: #0a58ca">
+                        @product.Name
+                    </td>
+                    <td class="align-middle">
+                        @product.Price
+                    </td>
+                    <td class="align-middle">
+                        <button name="@product.Id" @onclick="@(() => SubmitToBasket())" class="btn-primary" type="submit">Купить</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+    <p>Load...</p>
+}
+
+@code{
+
+    private void SubmitToBasket()
+    {
+        //Basket.AddProductToBasket(product);
+        JS.InvokeVoidAsync("show message", args: "Товар добавлен в корзину!");
+    }
+
+    private IReadOnlyList<Product>? ProductList { get; set; }
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        ProductList = await HttpClient.GetProducts();
+    }
+
+
+}

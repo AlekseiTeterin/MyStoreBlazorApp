@@ -1,0 +1,33 @@
+﻿@page "/registration"
+
+@inject IMyStoreClient Client
+
+<h3>Регистрация в системе</h3>
+
+<EditForm Model="_model" OnValidSubmit="Register">
+	<table>
+		<tr><td>Имя</td><td><input type="text" class="form-control"
+			@bind-value="_model.Name" /></td></tr>
+		<tr><td>Email</td><td><input type="email" class="form-control"
+			@bind-value="_model.Email" /></td></tr>
+		<tr><td>Пароль</td><td><input type="password" class="form-control"
+			@bind-value="_model.Password" /></td></tr>
+		<tr><ValidationSummary/></tr>
+		<tr><input type="submit" class="btn btn-primary" value="OK" /></tr>
+	</table>
+</EditForm>
+@if(_registered)
+{
+	<h2 class="text-success">Вы успешно зарегестрированы</h2>
+}
+
+@code {
+	private readonly Account _model = new();
+	private bool _registered = false;
+
+	private async Task Register()
+	{
+		await Client.RegisterAccount(_model);
+		_registered = true;
+	}
+}

@@ -1,0 +1,43 @@
+﻿@page "/basket"
+
+@using MyStore.Models;
+@using MyStore.HttpApiClient;
+
+@inject IMyStoreClient HttpClient
+
+<h3>Ваша корзина с товарами</h3>
+
+@if (Basket != null)
+{
+    @foreach (var item in Basket)
+    {
+       
+        
+            <div>
+                <h3>
+                    @item.Id
+                </h3>
+                <h3>
+                @item.ProductId
+                </h3>
+                <h3>
+                    @item.ItemNumbers
+                </h3>
+            </div>
+            
+    }
+}
+else
+{
+    <p>Ваша корзина пуста :(</p>
+}
+
+@code {
+    public IEnumerable<BasketElement> Basket { get; set; }
+    
+
+    protected override async Task OnInitializedAsync()
+    {
+        Basket = await HttpClient.GetBasketProducts();
+    }
+}
