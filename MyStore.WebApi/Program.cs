@@ -4,6 +4,7 @@ using MyStore.WebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using MyStore.WebApi.Repositories;
 using MyStore.WebApi.Repositories.GenericRepository;
+using MyStore.WebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +23,9 @@ builder.Services.AddScoped(
     typeof(IRepository<>), typeof(EfRepository<>));*/
 
 builder.Services.AddScoped<IProductsRepository, ProductRepository>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+
 builder.Services.AddControllers();
 var app = builder.Build();
 

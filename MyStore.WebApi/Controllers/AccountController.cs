@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyStore.Models;
 using MyStore.WebApi.Repositories;
+using MyStore.WebApi.Services;
 
 namespace MyStore.WebApi.Controllers
 {
@@ -9,33 +10,45 @@ namespace MyStore.WebApi.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly IAccountService _accountService;
 
-        public AccountController(IAccountRepository accountRepository)
+        public AccountController(IAccountRepository accountRepository, IAccountService accountService)
         {
             _accountRepository = accountRepository;
+            _accountService = accountService;
         }
         [HttpPost("register")]
-        public async Task<IActionResult> Register(Account account)
+        public async Task<ActionResult<Account>> Register(Account account)
         {
-            account.Id = Guid.NewGuid();
-
-            var existedAccount = await _accountRepository.
-                FindByEmail(account.Email);
-
-            var accountExists = existedAccount is null;
-
-            if (accountExists)
+            try
             {
-                await _accountRepository.Add(account);
-                return Ok();
+                var newAccount = await _accountService.Register(account);
+                return newAccount;
             }
-            else
+            catch (EmailIsBusyException ex)
             {
                 return BadRequest(new
                 {
-                    Message = "Такой email уже зарегистрирован"
-                }); 
+                    ex.Message, 
+                    account.Email
+                });
             }
+            
+        }
+
+        [HttpGet("get")]
+        public async Task<ActionResult<Account>> GetAccount(Guid id)
+        {
+            try
+            {
+                Account account = await _accountRepository.GetById(id);
+                return account;
+            }
+            catch(InvalidOperationException)
+            {
+                return NotFound();
+            }
+            
         }
     }
 }
