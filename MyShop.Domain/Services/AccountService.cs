@@ -25,7 +25,7 @@ namespace MyStore.Domain.Services
 
             if (accountExists)
             {
-                throw new EmailIsBusyException("Такой аккаунт уже зарегистрирован в системе");
+                throw new EmailIsOccupiedException("Такой аккаунт уже зарегистрирован в системе");
             }
 
             await _accountRepository.Add(account);

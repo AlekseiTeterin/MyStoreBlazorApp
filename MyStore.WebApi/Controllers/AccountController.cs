@@ -26,7 +26,7 @@ namespace MyStore.WebApi.Controllers
                 var newAccount = await _accountService.Register(account);
                 return newAccount;
             }
-            catch (EmailIsBusyException ex)
+            catch (EmailIsOccupiedException ex)
             {
                 return BadRequest(new
                 {
