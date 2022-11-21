@@ -4,7 +4,8 @@ using MyStore.WebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using MyStore.WebApi.Repositories;
 using MyStore.WebApi.Repositories.GenericRepository;
-using MyStore.WebApi.Services;
+using MyStore.Domain.Repositories;
+using MyStore.Domain.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

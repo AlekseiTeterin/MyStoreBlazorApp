@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyStore.Domain.Repositories;
 using MyStore.Models;
-using MyStore.WebApi.Repositories;
+
 
 namespace MyStore.WebApi.Controllers
 {

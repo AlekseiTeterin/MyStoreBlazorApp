@@ -1,6 +1,6 @@
 ﻿using MyStore.Models;
 
-namespace MyStore.WebApi.Services
+namespace MyStore.Domain.Services
 {
     public interface IAccountService
     {

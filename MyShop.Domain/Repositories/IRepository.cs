@@ -1,6 +1,6 @@
 ﻿using MyStore.Models;
 
-namespace MyStore.WebApi.Repositories.GenericRepository
+namespace MyStore.Domain.Repositories
 {
     public interface IRepository<TEntity> where TEntity : IEntity
     {

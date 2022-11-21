@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using MyStore.Domain.Repositories;
 using MyStore.Models;
-using MyStore.WebApi.Repositories;
 
-namespace MyStore.WebApi.Services
+
+namespace MyStore.Domain.Services
 {
     public class AccountService : IAccountService
     {
@@ -12,7 +13,7 @@ namespace MyStore.WebApi.Services
         {
             _accountRepository = accountRepository;
         }
-        [HttpPost("register")]
+        
         public async Task<Account> Register(Account account)
         {
             account.Id = Guid.NewGuid();

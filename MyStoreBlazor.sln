@@ -4,12 +4,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.4.33020.496
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStore.WebApi", "MyStore.WebApi\MyStore.WebApi.csproj", "{03286AA6-046E-47E3-9843-3B4BFB7F1E58}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1085F244-AC5D-4455-9769-3BE5EC650D6B} = {1085F244-AC5D-4455-9769-3BE5EC650D6B}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStore.Models", "MyStore.Models\MyStore.Models.csproj", "{BCA70BEA-68BC-47FD-B978-283777F4C8B8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStore.HttpApiClient", "MyStore.HttpApiClient\MyStore.HttpApiClient.csproj", "{A555A4D6-6E6F-41AE-A371-EAB7663AD442}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyStore.BlazorClient", "MyStore.BlazorClient\MyStore.BlazorClient.csproj", "{8E41D5C8-5E70-4E2B-B928-ABF365727270}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyStore.Domain", "MyShop.Domain\MyStore.Domain.csproj", "{1085F244-AC5D-4455-9769-3BE5EC650D6B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BCA70BEA-68BC-47FD-B978-283777F4C8B8} = {BCA70BEA-68BC-47FD-B978-283777F4C8B8}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +41,10 @@ Global
 		{8E41D5C8-5E70-4E2B-B928-ABF365727270}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E41D5C8-5E70-4E2B-B928-ABF365727270}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E41D5C8-5E70-4E2B-B928-ABF365727270}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1085F244-AC5D-4455-9769-3BE5EC650D6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1085F244-AC5D-4455-9769-3BE5EC650D6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1085F244-AC5D-4455-9769-3BE5EC650D6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1085F244-AC5D-4455-9769-3BE5EC650D6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

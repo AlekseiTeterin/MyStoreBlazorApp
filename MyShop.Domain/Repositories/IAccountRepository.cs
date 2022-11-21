@@ -1,7 +1,6 @@
 ﻿using MyStore.Models;
-using MyStore.WebApi.Repositories.GenericRepository;
 
-namespace MyStore.WebApi.Repositories
+namespace MyStore.Domain.Repositories
 {
     public interface IAccountRepository : IRepository<Account>
     {

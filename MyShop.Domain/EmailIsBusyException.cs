@@ -1,5 +1,5 @@
 ﻿
-namespace MyStore.Models
+namespace MyStore.Domain
 {
     public class EmailIsBusyException : Exception
     {

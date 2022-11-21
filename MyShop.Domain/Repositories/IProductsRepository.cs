@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
 using MyStore.Models;
-using MyStore.WebApi.Repositories.GenericRepository;
 
-namespace MyStore.WebApi.Repositories
+namespace MyStore.Domain.Repositories
 {
     public interface IProductsRepository : IRepository<Product>
     {
