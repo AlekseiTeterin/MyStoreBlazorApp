@@ -1,11 +1,11 @@
-using MyStore.Models;
-using Microsoft.AspNetCore.Mvc;
-using MyStore.WebApi.Data;
 using Microsoft.EntityFrameworkCore;
-using MyStore.WebApi.Repositories;
-using MyStore.WebApi.Repositories.GenericRepository;
 using MyStore.Domain.Repositories;
 using MyStore.Domain.Services;
+using MyStore.Data.Ef.Data;
+using MyStore.Data.Ef.Repositories;
+using Microsoft.AspNetCore.Identity;
+using MyStore.Models;
+using Microsoft.AspNetCore.HttpLogging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +14,12 @@ var dbPath = "myapp.db";
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddDbContext<AppDbContext>(
    options => options.UseSqlite($"Data Source={dbPath}"));
+
+//builder.Services.AddScoped<AppDbContext>(_ => new AppDbContext($"D"));
+
 
 builder.Services.AddCors();
 
@@ -28,6 +32,20 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
 builder.Services.AddControllers();
+
+builder.Services.Configure<PasswordHasherOptions>(
+   opt => opt.IterationCount = 100_000);
+builder.Services.AddSingleton<IPasswordHasher<Account>, PasswordHasher<Account>>();
+
+builder.Services.AddHttpLogging(options =>
+{
+    options.LoggingFields = HttpLoggingFields.RequestHeaders
+                            | HttpLoggingFields.ResponseHeaders
+                            | HttpLoggingFields.RequestBody
+                            | HttpLoggingFields.ResponseBody;
+});
+
+
 var app = builder.Build();
 
 // CORS
@@ -40,6 +58,20 @@ app.UseCors(policy => policy
     .AllowCredentials()
 );
 
+app.Use(async (context, next) =>
+{
+    var userAgent = context.Request.Headers.UserAgent.ToString();
+    if (userAgent.Contains("Edg"))
+    {
+        await next();
+    }
+    else
+    {
+        context.Response.Headers.ContentType = "text/plain; charset=utf-8";
+        await context.Response.WriteAsync("Ваш браузер не поддерживается. Воспользуйтесь браузером MS Edge");
+    }
+});
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -48,11 +80,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-
-// "/add_product" - RPC
-// "/catalog/products" - REST
-
+app.UseHttpLogging();
 
 app.MapControllers();
 

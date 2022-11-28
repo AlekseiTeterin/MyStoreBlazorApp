@@ -19,7 +19,7 @@ namespace MyStore.WebApi.Controllers
             _accountService = accountService;
         }
         [HttpPost("register")]
-        public async Task<ActionResult<Account>> Register(Account account)
+        public async Task<ActionResult<Account>> Register(AccountForRegistration account)
         {
             try
             {
@@ -35,6 +35,19 @@ namespace MyStore.WebApi.Controllers
                 });
             }
             
+        }
+
+        [HttpGet("authorization")]
+        public async Task<ActionResult<Account>> Authorization(AccountForRegistration account)
+        {
+            try
+            {
+                return await _accountService.Authorization(account);    
+            }
+            catch (Exception)
+            {
+                return Unauthorized();
+            }
         }
 
         [HttpGet("get")]

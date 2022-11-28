@@ -11,7 +11,7 @@ namespace MyStore.Models
             Id = id;
             Name = name;
             Email = email;
-            Password = password;
+            PasswordHash = password;
         }
         public Account()
         {
@@ -24,7 +24,7 @@ namespace MyStore.Models
         [EmailAddress]
         public string Email { get; set; } = "";
         [MinLength(6)]
-        public string Password { get; set; } = "";
+        public string PasswordHash { get; set; } = "";
         
     }
 }

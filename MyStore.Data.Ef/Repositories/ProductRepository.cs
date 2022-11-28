@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyStore.Data.Ef.Data;
+using MyStore.Data.Ef.Repositories.GenericRepository;
 using MyStore.Domain.Repositories;
 using MyStore.Models;
-using MyStore.WebApi.Data;
-using MyStore.WebApi.Repositories.GenericRepository;
 
-namespace MyStore.WebApi.Repositories
+namespace MyStore.Data.Ef.Repositories
 {
     public class ProductRepository : EfRepository<Product>, IProductsRepository
     {
         private readonly AppDbContext _dbContext;
-        public ProductRepository(AppDbContext dbContext) 
-            : base(dbContext) 
+        public ProductRepository(AppDbContext dbContext)
+            : base(dbContext)
         {
             _dbContext = dbContext;
         }

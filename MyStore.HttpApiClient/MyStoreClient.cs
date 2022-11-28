@@ -100,10 +100,18 @@ namespace MyStore.HttpApiClient
             await _httpClient.PostAsJsonAsync(uri, currentElement);
         }
 
-        public async Task RegisterAccount(Account account)
+        public async Task RegisterAccount(AccountForRegistration account)
         {
             var uri = $"{_host}/account/register";
             var response = await _httpClient.PostAsJsonAsync(uri, account);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task AuthAccount(AccountForRegistration account)
+        {
+            var uri = $"{_host}/account/authorization";
+            var response = await _httpClient.PostAsJsonAsync(uri, account);
+
             response.EnsureSuccessStatusCode();
         }
     }

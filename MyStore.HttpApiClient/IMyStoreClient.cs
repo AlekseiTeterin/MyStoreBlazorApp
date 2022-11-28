@@ -23,6 +23,7 @@ namespace MyStore.HttpApiClient
         Task AddProductToBasket(BasketElement currentElement);
 
 
-        Task RegisterAccount(Account account);
+        Task RegisterAccount(AccountForRegistration account);
+        Task AuthAccount(AccountForRegistration account);
     }
 }

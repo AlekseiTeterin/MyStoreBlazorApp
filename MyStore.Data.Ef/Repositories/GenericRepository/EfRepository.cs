@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyStore.Data.Ef.Data;
 using MyStore.Domain.Repositories;
 using MyStore.Models;
-using MyStore.WebApi.Data;
 
-namespace MyStore.WebApi.Repositories.GenericRepository
+namespace MyStore.Data.Ef.Repositories.GenericRepository
 {
     public abstract class EfRepository<TEntity> : IRepository<TEntity> where TEntity : class, IEntity
     {
