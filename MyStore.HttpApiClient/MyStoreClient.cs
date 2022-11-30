@@ -107,9 +107,9 @@ namespace MyStore.HttpApiClient
             response.EnsureSuccessStatusCode();
         }
 
-        public async Task AuthAccount(AccountForRegistration account)
+        public async Task AuthenticateAccount(AccountForRegistration account)
         {
-            var uri = $"{_host}/account/authorization";
+            var uri = $"{_host}/account/authentificate";
             var response = await _httpClient.PostAsJsonAsync(uri, account);
 
             response.EnsureSuccessStatusCode();

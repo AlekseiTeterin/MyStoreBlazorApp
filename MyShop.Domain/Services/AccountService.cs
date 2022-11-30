@@ -44,7 +44,7 @@ namespace MyStore.Domain.Services
         }
 
 
-        public async Task<Account> Authorization(AccountForRegistration regAccount)
+        public async Task<Account> Authenticate(AccountForRegistration regAccount)
         {
             Account? existedAccount = await _accountRepository.
                 FindByEmail(regAccount.Email);

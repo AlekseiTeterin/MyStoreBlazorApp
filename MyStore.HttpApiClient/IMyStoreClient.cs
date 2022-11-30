@@ -24,6 +24,6 @@ namespace MyStore.HttpApiClient
 
 
         Task RegisterAccount(AccountForRegistration account);
-        Task AuthAccount(AccountForRegistration account);
+        Task AuthenticateAccount(AccountForRegistration account);
     }
 }

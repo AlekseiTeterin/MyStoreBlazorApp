@@ -4,39 +4,43 @@
 @using MyStore.Models;
 
 @inject IMyStoreClient Client
+@inject NavigationManager NavManager
 
 <h3>Вход в систему</h3>
 
-<EditForm Model="_model" OnValidSubmit="LoginUser">
-    
+<EditForm Model="@_model" @OnValidSubmit="@(() => LoginUser())">
     <table>
-        <tr><td>Имя</td><td><input type="text" class="form-control"
-			@bind-value="_model.Name" /></td></tr>
 		<tr><td>Email</td><td><input type="email" class="form-control"
 			@bind-value="_model.Email" /></td></tr>
 		<tr><td>Пароль</td><td><input type="password" class="form-control"
 			@bind-value="_model.Password" /></td></tr>
+
 		<tr><ValidationSummary/></tr>
 
         <tr><input type="submit" class="btn btn-primary btn-block mr-2" value="Войти"/></tr>
-        <tr><input type="button" class="btn btn-secondary btn-block mr-2" onclick="@GoToRegister" value="Зарегестрироваться"/></tr>
-
+        <tr><input type="button" class="btn btn-secondary btn-block mr-2" @onclick="@(() => GoToRegister())" value="Зарегестрироваться" /></tr>
     </table>
 </EditForm>
 
+@if (_authenticated)
+{
+    NavManager.NavigateTo("/catalog");
+}
+
 @code {
+
     private readonly AccountForRegistration _model = new();
-    private bool _registered = false;
-    
+    private bool _authenticated = false;
+
 
     private async Task LoginUser()
     {
-        await Client.RegisterAccount(_model);
-    
-        _registered = true;
+        await Client.AuthenticateAccount(_model);
+
+        _authenticated = true;
     }
     private void GoToRegister()
     {
-        //нужно реализовать логику перехода 
+        NavManager.NavigateTo("/registration");
     }
 }

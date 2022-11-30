@@ -37,12 +37,12 @@ namespace MyStore.WebApi.Controllers
             
         }
 
-        [HttpGet("authorization")]
-        public async Task<ActionResult<Account>> Authorization(AccountForRegistration account)
+        [HttpPost("authentificate")]
+        public async Task<ActionResult<Account>> Authenticate(AccountForRegistration account)
         {
             try
             {
-                return await _accountService.Authorization(account);    
+                return await _accountService.Authenticate(account);    
             }
             catch (Exception)
             {
